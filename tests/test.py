@@ -1,6 +1,7 @@
 import torch
 from PIL import Image
 from lavis.models import load_model_and_preprocess
+import time
 
 
 def main():
@@ -15,8 +16,16 @@ def main():
     )
 
     image = vis_processors["eval"](raw_image).unsqueeze(0).to(device)
+    start_time = time.time()
+    output = model.generate({"image": image, "prompt": "Write a short description for the image."})
+    print(output)
+    print(time.time() - start_time)
 
-    model.generate({"image": image, "prompt": "Write a short description for the image."})
+    start_time = time.time()
+    output = model.generate({"image": image, "prompt": "Write a detailed description for the image."})
+    print(output)
+    print(time.time() - start_time)
+    
 
     print(1)
     
