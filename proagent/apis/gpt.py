@@ -15,12 +15,14 @@ class GPT():
                 {"role": "user", "content": prompt}
             ]
         )
-        print(response)
+        result = response['choices'][0]['message']['content']
+        return result
 
 
 def main():
     gpt = GPT()
-    gpt.text_completion_basic('this is a test')
+    result = gpt.text_completion_basic('what is 1+1')
+    print(result)
 
 if __name__ == '__main__':
     main()
