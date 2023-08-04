@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>front end</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    #video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" autoplay muted></video>
+
+  <script>
+    async function startCameraStream() {
+      const video = document.getElementById('video');
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.play();
+
+        function adjustVideoSize() {
+        }
+
+        adjustVideoSize();
+        window.addEventListener('resize', adjustVideoSize);
+      } catch (error) {
+        console.error('Error accessing the camera: ', error);
+      }
+    }
+
+    startCameraStream();
+  </script>
+</body>
+</html>
