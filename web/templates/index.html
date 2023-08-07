@@ -1,17 +1,103 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
 
-  <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8  offset-lg-2">
-                <h3 class="mt-5">ProactiveAgent</h3>
-                <img src="{{ url_for('video_feed') }}" width="50%">
-            </div>
-        </div>
+    .container {
+      height: 100%;
+      display: flex;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-feed {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .reminder {
+      width: 300px; 
+      background: rgba(65, 65, 65, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 300px; 
+      border-radius: 10px;
+    }
+
+    .vertical-menu {
+      width: 300px; 
+      background: rgba(65, 65, 65, 0.5);
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 50%;
+      border-radius: 10px;
+    }
+
+    .horizontal-menu {
+      width: 30%;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.5); 
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="video-container">
+      <img src="{{ url_for('video_feed') }}" class="video-feed">
     </div>
-    </body>
+    <div class="reminder">
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <label for="reminder" style="color: white; font-size: 30px; font-weight: bold;">Reminder</label>
+      </div>
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <p id="reminder-text" style="color: white; font-size: 18px;"></p>
+      </div>
+    </div>
+    
+    <div class="vertical-menu">
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <label for="location" style="color: white; font-size: 18px; font-weight: bold;">Current Location:</label>
+        <p id="location-text" style="color: white; font-size: 18px;"></p>
+      </div>
+      
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <label for="activity" style="color: white; font-size: 18px; font-weight: bold; ">Activity:</label>
+        <p id="activity-text" style="color: white; font-size: 18px;"></p>
+      </div>  
+    </div>
+    
+    <div class="horizontal-menu">
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <label for="transcribeCheck" style="color: white; font-size: 18px; font-weight: bold;">Transcribe</label>
+        <input type="checkbox" id="transcribeCheck" onclick="handleTranscribeToggle()">
+      </div>     
+      <div style="margin-top: 20px; margin-left: 20px;">
+        <label for="confidenceThreshold" style="color: white; font-size: 18px; font-weight: bold;">Confidence Threshold:</label>
+        <input type="number" id="confidenceThreshold" min="0" max="100" step="1" onchange="handleConfidenceChange()">
+      </div>
+    </div>
 
+  </div>
+<script src="script.js"></script>
+</body>
 
 </html>
