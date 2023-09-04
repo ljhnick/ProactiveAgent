@@ -1,12 +1,12 @@
-
-
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 import cv2
+import audio
+
 app=Flask(__name__)
 camera = cv2.VideoCapture(0)
 # import json
 
-def gen_frames():  
+def gen_frames():
     while True:
         success, frame = camera.read()  # read the camera frame
         if not success:
@@ -36,5 +36,11 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/audio_feed')
+def audio_feed():
+    return Response(audio.audio_trans())
+
+
+
 if __name__=='__main__':
     app.run(debug=True)

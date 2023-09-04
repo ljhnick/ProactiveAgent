@@ -32,4 +32,3 @@ function getLocation() {
 function getActivity() {
      // Todo: add logic to communicate with backend
 }
-
