@@ -4,14 +4,12 @@ import audio
 
 app=Flask(__name__)
 camera = cv2.VideoCapture(0)
-<<<<<<< HEAD
+
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 44100
 CHUNK_SIZE = int(SAMPLE_RATE / 10)  # 100ms
 mic_manager = None
-=======
->>>>>>> origin/frontend
 # import json
 
 def gen_frames():
@@ -44,7 +42,6 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-<<<<<<< HEAD
 @app.route('/audio_feed/<int:rec>')
 def audio_feed(rec):
     global mic_manager
@@ -53,13 +50,10 @@ def audio_feed(rec):
         return Response(audio.audio_trans(mic_manager))
     else:
         return Response(audio.stop_trans(mic_manager))
-=======
+
 @app.route('/audio_feed')
 def audio_feed():
     return Response(audio.audio_trans())
-
-
->>>>>>> origin/frontend
 
 if __name__=='__main__':
     app.run(debug=True)

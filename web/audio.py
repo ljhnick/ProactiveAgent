@@ -226,11 +226,9 @@ def audio_trans():
         config=config, interim_results=True
     )
 
-<<<<<<< HEAD
     mic_manager.closed = False
-=======
+
     mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
->>>>>>> origin/frontend
 
     with mic_manager as stream:
         while not stream.closed:
@@ -241,12 +239,7 @@ def audio_trans():
                 speech.StreamingRecognizeRequest(audio_content=content)
                 for content in audio_generator
             )
-
-<<<<<<< HEAD
             
-
-=======
->>>>>>> origin/frontend
             responses = client.streaming_recognize(streaming_config, requests)
             # # Now, put the transcription responses to use.
             for response in responses:
@@ -259,12 +252,11 @@ def audio_trans():
                     continue
 
                 transcript = result.alternatives[0].transcript
-<<<<<<< HEAD
+
                 yield transcript
 
 def stop_trans(mic_manager):
     mic_manager.closed = True
     return "No Transcription"
-=======
                 yield transcript
->>>>>>> origin/frontend
+
