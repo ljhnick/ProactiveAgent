@@ -134,9 +134,41 @@
       </div>
     </div>
 
-    <div class="iframe-container">
-      <iframe src="{{ url_for('audio_feed') }}" title="Transcription"></iframe>
+    <div id="transSection" class="iframe-container">
+     
     </div>
+
+    <button id="startRecording" style="position: absolute; bottom: 80px; right: 20px; width: 20%;" type="button">
+      Start Recording
+    </button>
+    <button id="stopRecording" style="position: absolute; bottom: 100px; right: 20px; width: 20%;" type="button">
+      Stop Recording
+    </button>  
+    <script>
+      const startRecButton = document.getElementById("startRecording");
+      const stopRecButton = document.getElementById("stopRecording");
+      const transSection = document.getElementById("transSection");
+      startRecButton.disabled = false;
+      stopRecButton.disabled = true;
+      
+      startRecButton.addEventListener('click', () => {
+        const trans = document.getElementById("transcription") ?? document.createElement("iframe");
+        trans.id = "transcription";
+        trans.src = "{{ url_for('audio_feed', rec=1) }}";
+        trans.title = "Transcription";
+        transSection.appendChild(trans);
+        startRecButton.disabled = true;
+        stopRecButton.disabled = false;
+      });
+
+      stopRecButton.addEventListener('click', () => {
+        const trans = document.getElementById("transcription");
+        trans.src = "{{ url_for('audio_feed', rec=0) }}";
+        startRecButton.disabled = false;
+        stopRecButton.disabled = true;
+      });
+    </script>
+
   </div>
 </body>
 
