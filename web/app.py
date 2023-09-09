@@ -4,7 +4,6 @@ import audio
 
 app=Flask(__name__)
 camera = cv2.VideoCapture(0)
-
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 44100
@@ -50,10 +49,6 @@ def audio_feed(rec):
         return Response(audio.audio_trans(mic_manager))
     else:
         return Response(audio.stop_trans(mic_manager))
-
-@app.route('/audio_feed')
-def audio_feed():
-    return Response(audio.audio_trans())
 
 if __name__=='__main__':
     app.run(debug=True)

@@ -8,7 +8,6 @@ from google.cloud import speech
 import pyaudio
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '../proactiveagent-395905-a2413bcfec43.json'
-
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 44100
@@ -206,9 +205,6 @@ def listen_print_loop(responses: object, stream: object):
 #mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
 
 def audio_trans(mic_manager):
-
-def audio_trans():
->>>>>>> origin/frontend
     """start bidirectional streaming from microphone input to speech API"""
     client = speech.SpeechClient()
     config = speech.RecognitionConfig(
@@ -224,8 +220,6 @@ def audio_trans():
 
     mic_manager.closed = False
 
-    mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
-
     with mic_manager as stream:
         while not stream.closed:
             stream.audio_input = []
@@ -235,7 +229,9 @@ def audio_trans():
                 speech.StreamingRecognizeRequest(audio_content=content)
                 for content in audio_generator
             )
+
             
+
             responses = client.streaming_recognize(streaming_config, requests)
             # # Now, put the transcription responses to use.
             for response in responses:
@@ -248,11 +244,8 @@ def audio_trans():
                     continue
 
                 transcript = result.alternatives[0].transcript
-
                 yield transcript
 
 def stop_trans(mic_manager):
     mic_manager.closed = True
     return "No Transcription"
-                yield transcript
-
